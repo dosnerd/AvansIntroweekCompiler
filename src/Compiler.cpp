@@ -35,13 +35,22 @@ std::string Compiler::Compiler::Compile(std::string code) {
 }
 
 unsigned long Compiler::Compiler::Run() {
+    unsigned programPointer = 0;
     m_errorLine = 1;
-    for (Statements::Statement *statement : m_program){
+
+    while (programPointer < m_program.size()){
         try {
+            Statements::Statement *statement = m_program[programPointer++];
+            Memory::GetInstance().SetHeap("PROGRAM_POINTER", programPointer);
+
+            if (statement == nullptr) continue;
+
             if (!statement->Execute()) {
                 m_error = "FAILED TO EXECUTE";
                 return m_errorLine;
             }
+
+            programPointer = static_cast<unsigned int>(Memory::GetInstance().GetHeap("PROGRAM_POINTER"));
         } catch (std::string &error){
             m_error = error;
             return m_errorLine;
@@ -72,8 +81,15 @@ std::string Compiler::Compiler::RunTimeErrorReport(std::string code) {
 
 std::string Compiler::Compiler::CompileLine(std::string &line) {
     std::list<std::string> params = SplitParams(line);
-    std::string command = params.front();
+    std::string command;
     Statements::Statement *statement;
+
+    if (params.size() == 0){
+        m_program.push_back(nullptr);
+        return "";
+    }
+
+    command = params.front();
     params.pop_front();
 
     try {
@@ -90,12 +106,15 @@ std::string Compiler::Compiler::CompileLine(std::string &line) {
 }
 
 std::list<std::string> Compiler::Compiler::SplitLines(std::string &code) {
-    std::regex lineFilter(".+[^\r\n]");
+    std::regex lineFilter(".*\r?(\n|$)");
     std::sregex_iterator it(code.begin(), code.end(), lineFilter);
     std::list<std::string> lines;
 
     for (; it != std::sregex_iterator(); ++it) {
-        lines.push_back((*it).str());
+        std::string line = it->str();
+        line = Replace(line, "\r", "");
+        line = Replace(line, "\n", " ");
+        lines.push_back(line);
     }
 
     return lines;
@@ -111,4 +130,12 @@ std::list<std::string> Compiler::Compiler::SplitParams(std::string &line) {
     }
 
     return params;
+}
+
+std::string Compiler::Compiler::Replace(std::string str, std::string search, std::string replace) {
+    size_t start_pos = str.find(search);
+    if(start_pos == std::string::npos)
+        return str;
+    str.replace(start_pos, search.length(), replace);
+    return str;
 }

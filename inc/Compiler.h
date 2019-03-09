@@ -8,6 +8,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 #include <Statements/Statement.h>
 
 #define RUN_SUCCEED             0
@@ -24,7 +25,7 @@ namespace Compiler {
         std::string                             RunTimeErrorReport(std::string code);
 
     private:
-        std::list<Statements::Statement *>      m_program;
+        std::vector<Statements::Statement *>    m_program;
         std::string                             m_error;
         unsigned long                           m_errorLine;
 
@@ -32,6 +33,7 @@ namespace Compiler {
         std::string                             CompileLine(std::string &line);
         std::list<std::string>                  SplitLines(std::string &code);
         std::list<std::string>                  SplitParams(std::string &line);
+        std::string                             Replace(std::string str, std::string from, std::string to);
     };
 };
 

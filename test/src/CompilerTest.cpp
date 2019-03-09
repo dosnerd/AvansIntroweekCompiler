@@ -10,7 +10,10 @@ TEST(CompilerTesting, no_code) {
 
     memory.Reset();
     std::string feedback = compiler.Compile("");
-    EXPECT_FALSE(feedback.empty());
+    EXPECT_TRUE(feedback.empty());
+
+    unsigned long errorLine = compiler.Run();
+    ASSERT_EQ(errorLine, RUN_SUCCEED);
 }
 
 TEST(CompilerTesting, one_line_compile) {
@@ -71,6 +74,7 @@ TEST(CompilerTesting, multi_line_compile) {
     std::string feedback = compiler.Compile(
             "SET _TEST 1\r\n"
             "GET _TEST\r\n"
+            "\r\n"
             "ADD 5\r\n"
             "SET _END");
 
@@ -85,6 +89,7 @@ TEST(CompilerTesting, multi_line_compile_without_cariage_return) {
     std::string feedback = compiler.Compile(
             "SET _TEST 1\n"
             "GET _TEST\n"
+            "\r\n"
             "ADD 5\n"
             "SET _END");
 
@@ -99,6 +104,7 @@ TEST(CompilerTesting, multi_line_run) {
     std::string feedback = compiler.Compile(
             "SET _TEST 1\r\n"
             "GET _TEST\r\n"
+            "\r\n"
             "ADD 5\r\n"
             "SET _END"
     );
@@ -117,6 +123,7 @@ TEST(CompilerTesting, multi_line_compile_error) {
     std::string feedback = compiler.Compile(
             "SET WRONG AMOUNT OF PARAMS\r\n"
             "GET _TEST\r\n"
+            "\r\n"
             "ADD five\r\n"
             "SET _END"
     );
@@ -131,6 +138,7 @@ TEST(CompilerTesting, multi_line_runtime_error) {
     std::string code =
             "SET _TEST 1\r\n"
             "GET TEST\r\n"
+            "\r\n"
             "ADD 5\r\n"
             "SET _END";
 

@@ -48,9 +48,10 @@ void Compiler::Memory::Reset() {
 }
 
 bool Compiler::Memory::IsNameValid(std::string name) {
-    if (name.find("OUTPUT_") != 0 && name.find("INPUT_") != 0 && name[0] != '_')
+    if (name.find("OUTPUT_") != 0 && name.find("INPUT_") != 0 && name[0] != '_' && name != "PROGRAM_POINTER")
         return false;
 
+    if (name == "PROGRAM_POINTER") return true;
     if (name[0] == '_') return true;
     if (name[0] == 'I' && name.length() > 6) return true;
 

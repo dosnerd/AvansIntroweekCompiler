@@ -10,10 +10,8 @@ DIVIDE_TO 5
 SWAP_BIT 1 AND 2
 
 IF < 5			// <>=!
-//do
-ELSE
-//end
-END IF
+//true
+//false
 
 SET _NAME		// Set stack into heap
 SET _NAME 1		// Var always starts with _
@@ -27,4 +25,9 @@ Invalid program runs on lowest level (fastest countdown)
 stack only 1 int big
 heap contains key-value as string-int
 
-Every output stands for 7 segmenten display. 
+Every output stands for 7 segmenten display.
+
+Implement stack pointer.
+if just move stack pointer by 1 if false
+Implement jump
+jump to line
