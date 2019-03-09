@@ -1,0 +1,30 @@
+# LEVEL 1
+GET INPUT_A		    // Get from heap
+SET OUTPUT_1		// Set to heap (special var)
+
+ADD 5
+MINUS 5
+TIMES 5
+DIVIDE_TO 5
+
+SWAP_BIT 1 AND 2
+
+IF < 5			// <>=!
+//do
+ELSE
+//end
+END IF
+
+SET _NAME		// Set stack into heap
+SET _NAME 1		// Var always starts with _
+GET _NAME
+
+
+
+How higher level, how slower countdown
+Invalid program runs on lowest level (fastest countdown)
+
+stack only 1 int big
+heap contains key-value as string-int
+
+Every output stands for 7 segmenten display. 
