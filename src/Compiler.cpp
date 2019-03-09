@@ -9,7 +9,7 @@
 #include <Factory/StatementFactory.h>
 
 Compiler::Compiler::Compiler()
-        : m_errorLine(RUN_SUCCEED), m_error("NO ERRORS") {
+        : m_error("NO ERRORS") {
 }
 
 std::string Compiler::Compiler::Compile(std::string code) {
@@ -36,41 +36,38 @@ std::string Compiler::Compiler::Compile(std::string code) {
 
 unsigned long Compiler::Compiler::Run() {
     unsigned programPointer = 0;
-    m_errorLine = 1;
 
     while (programPointer < m_program.size()){
         try {
             Statements::Statement *statement = m_program[programPointer++];
-            Memory::GetInstance().SetHeap("PROGRAM_POINTER", programPointer);
+            Memory::GetInstance().SetHeap("PROGRAM_COUNTER", programPointer);
 
             if (statement == nullptr) continue;
 
             if (!statement->Execute()) {
                 m_error = "FAILED TO EXECUTE";
-                return m_errorLine;
+                return programPointer;
             }
 
-            programPointer = static_cast<unsigned int>(Memory::GetInstance().GetHeap("PROGRAM_POINTER"));
+            programPointer = static_cast<unsigned int>(Memory::GetInstance().GetHeap("PROGRAM_COUNTER"));
         } catch (std::string &error){
             m_error = error;
-            return m_errorLine;
+            return programPointer;
         }
-
-        m_errorLine++;
     }
 
-    m_errorLine = RUN_SUCCEED;
-    return m_errorLine;
+    return RUN_SUCCEED;
 }
 
 std::string Compiler::Compiler::RunTimeErrorReport(std::string code) {
     std::stringstream feedback;
     std::list<std::string> lines = SplitLines(code);
     unsigned long lineNumber = 1;
+    unsigned programCounter = static_cast<unsigned int>(Memory::GetInstance().GetHeap("PROGRAM_COUNTER"));
 
     for (const std::string &line : lines) {
         feedback << "Line " << lineNumber << ": " << line;
-        if (lineNumber == m_errorLine)
+        if (lineNumber == programCounter)
             feedback << " << " << m_error;
         feedback << std::endl;
         lineNumber++;

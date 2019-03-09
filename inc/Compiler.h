@@ -27,7 +27,6 @@ namespace Compiler {
     private:
         std::vector<Statements::Statement *>    m_program;
         std::string                             m_error;
-        unsigned long                           m_errorLine;
 
     private:
         std::string                             CompileLine(std::string &line);
