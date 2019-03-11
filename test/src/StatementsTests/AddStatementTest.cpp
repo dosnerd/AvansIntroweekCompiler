@@ -65,8 +65,7 @@ TEST_F(AddStatementTest, Params_add_variable) {
 
     add = new Compiler::Statements::AddStatement(params, 1);
     add->SetMemory(memory);
-    add->Execute();
-
+    ASSERT_TRUE(add->Execute());
     ASSERT_EQ(memory->GetStack(), 10);
 }
 
