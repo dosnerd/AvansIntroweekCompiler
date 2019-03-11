@@ -29,7 +29,7 @@ namespace Compiler {
         std::string                             m_error;
 
     private:
-        std::string                             CompileLine(std::string &line);
+        std::string                             CompileLine(std::string &line, unsigned iLine);
         std::list<std::string>                  SplitLines(std::string &code);
         std::list<std::string>                  SplitParams(std::string &line);
         std::string                             Replace(std::string str, std::string from, std::string to);

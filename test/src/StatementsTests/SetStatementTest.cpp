@@ -58,7 +58,7 @@ TEST_F(SetStatementTest, Params_correct_1) {
     Compiler::Statements::Statement *set;
 
     params.emplace_back("OUTPUT_1");
-    set = new Compiler::Statements::SetStatement(params);
+    set = new Compiler::Statements::SetStatement(params, 1);
     set->SetMemory(memory);
 
     EXPECT_TRUE(set->Execute());
@@ -71,7 +71,7 @@ TEST_F(SetStatementTest, Params_correct_2) {
 
     params.emplace_back("_TEST");
     params.emplace_back("224");
-    set = new Compiler::Statements::SetStatement(params);
+    set = new Compiler::Statements::SetStatement(params, 1);
     set->SetMemory(memory);
 
     EXPECT_TRUE(set->Execute());
@@ -84,7 +84,7 @@ TEST_F(SetStatementTest, Params_correct_2_value_0) {
 
     params.emplace_back("_TEST");
     params.emplace_back("0");
-    set = new Compiler::Statements::SetStatement(params);
+    set = new Compiler::Statements::SetStatement(params, 1);
     set->SetMemory(memory);
 
     EXPECT_TRUE(set->Execute());
@@ -96,7 +96,7 @@ TEST_F(SetStatementTest, Params_incorrect_amount) {
     Compiler::Statements::Statement *set;
 
     try {
-        set = new Compiler::Statements::SetStatement(params);
+        set = new Compiler::Statements::SetStatement(params, 1);
         FAIL();
     } catch (std::string &error) {
         ASSERT_EQ(error, INVALID_COUNT_PARAMS);
@@ -111,7 +111,7 @@ TEST_F(SetStatementTest, Params_incorrect_format) {
     params.emplace_back("not_number");
 
     try {
-        set = new Compiler::Statements::SetStatement(params);
+        set = new Compiler::Statements::SetStatement(params, 1);
         FAIL();
     } catch (std::string &error) {
         ASSERT_EQ(error, INVALID_PARAM(2));

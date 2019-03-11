@@ -14,7 +14,7 @@ namespace Compiler {
     namespace Statements {
         class SetStatement : public Statement {
         public:
-            explicit                    SetStatement(std::list<std::string> args);
+            explicit                    SetStatement(std::list<std::string> args, unsigned iLine);
             explicit                    SetStatement(std::string var);
                                         SetStatement(int value, std::string var);
 

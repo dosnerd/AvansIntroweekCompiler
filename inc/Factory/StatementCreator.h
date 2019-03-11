@@ -19,7 +19,7 @@ namespace Compiler {
             virtual                         ~StatementCreator() = default;
 
         public:
-            virtual Statements::Statement   *Create(std::list<std::string> params) = 0;
+            virtual Statements::Statement   *Create(std::list<std::string> params, unsigned iLine) = 0;
         };
     };
 };

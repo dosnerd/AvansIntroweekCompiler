@@ -10,7 +10,7 @@
 Compiler::Factory::StatementCreatorInstance
         <Compiler::Statements::SetStatement> Compiler::Statements::SetStatement::sCreator("SET");
 
-Compiler::Statements::SetStatement::SetStatement(std::list<std::string> args) {
+Compiler::Statements::SetStatement::SetStatement(std::list<std::string> args, unsigned iLine) {
     if (args.empty() || args.size() > 2)
         throw INVALID_COUNT_PARAMS;
 

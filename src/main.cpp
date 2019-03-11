@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 
 int RunFile(const std::string &code) {
     Compiler::Compiler compiler;
-    std::__cxx11::string feedback = compiler.Compile(code);
+    std::string feedback = compiler.Compile(code);
     if (!feedback.empty()){
         std::cout << feedback << std::endl;
         return 1;

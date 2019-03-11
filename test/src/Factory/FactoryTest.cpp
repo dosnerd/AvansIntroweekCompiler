@@ -8,7 +8,7 @@ TEST_F(FactoryTest, create){
     std::list<std::string> params;
 
     params.emplace_back("INPUT_A");
-    Compiler::Statements::Statement *statement = factory->CreateStatement("TEST_GET", params);
+    Compiler::Statements::Statement *statement = factory->CreateStatement("TEST_GET", params, 1);
 
     ASSERT_NE(statement, nullptr);
 }
@@ -18,7 +18,7 @@ TEST_F(FactoryTest, create_params_GET){
     Compiler::Statements::Statement *statement;
 
     params.emplace_back("INPUT_A");
-    statement = factory->CreateStatement("TEST_GET", params);
+    statement = factory->CreateStatement("TEST_GET", params, 1);
 
     ASSERT_NE(statement, nullptr);
 
@@ -33,7 +33,7 @@ TEST_F(FactoryTest, create_params_SET){
     Compiler::Statements::Statement *statement;
 
     params.emplace_back("OUTPUT_1");
-    statement = factory->CreateStatement("TEST_SET", params);
+    statement = factory->CreateStatement("TEST_SET", params, 1);
 
     ASSERT_NE(statement, nullptr);
 
@@ -45,7 +45,7 @@ TEST_F(FactoryTest, create_params_SET){
 
 TEST_F(FactoryTest, not_found){
     std::list<std::string> params;
-    Compiler::Statements::Statement *statement = factory->CreateStatement("TEST_NOT_EXISTS", params);
+    Compiler::Statements::Statement *statement = factory->CreateStatement("TEST_NOT_EXISTS", params, 1);
 
     ASSERT_EQ(statement, nullptr);
 }

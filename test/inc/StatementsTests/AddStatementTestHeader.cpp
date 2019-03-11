@@ -18,5 +18,6 @@ protected:
     void SetUp() override {
         memory = new Compiler::Memory();
         memory->SetStack(5);
+        memory->SetHeap("_five", 5);
     }
 };

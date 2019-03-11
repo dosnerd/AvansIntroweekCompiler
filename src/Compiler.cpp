@@ -19,7 +19,7 @@ std::string Compiler::Compiler::Compile(std::string code) {
     unsigned long lineNumber = 1;
 
     for (std::string line : lines) {
-        std::string result = CompileLine(line);
+        std::string result = CompileLine(line, lineNumber);
         containsErrors = containsErrors || !result.empty();
 
         feedback << "Line " << lineNumber << ": " << line << " >> " << result << std::endl;
@@ -76,7 +76,7 @@ std::string Compiler::Compiler::RunTimeErrorReport(std::string code) {
     return feedback.str();
 }
 
-std::string Compiler::Compiler::CompileLine(std::string &line) {
+std::string Compiler::Compiler::CompileLine(std::string &line, unsigned iLine) {
     std::list<std::string> params = SplitParams(line);
     std::string command;
     Statements::Statement *statement;
@@ -90,7 +90,7 @@ std::string Compiler::Compiler::CompileLine(std::string &line) {
     params.pop_front();
 
     try {
-        statement = Factory::StatementFactory::GetInstance().CreateStatement(command, params);
+        statement = Factory::StatementFactory::GetInstance().CreateStatement(command, params, iLine);
         if (statement == nullptr)
             return "UNKNOWN INSTRUCTION";
     }

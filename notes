@@ -31,3 +31,10 @@ Implement stack pointer.
 if just move stack pointer by 1 if false
 Implement jump
 jump to line
+
+Statement has access (while compiling) to the line number.
+LABEL register line number of itself to heap with name <label name> during build. Label name must start with _
+GOTO sets current PROGRAM_COUNTER to _R and jumps to label or address
+MEM_RESET resets heap (handy while in Interpreter)
+MEM_DUMP
+RETURN will get the _R from heap and jump to is

@@ -13,7 +13,7 @@ Compiler::Statements::GetStatement::GetStatement(std::string var)
 
 }
 
-Compiler::Statements::GetStatement::GetStatement(std::list<std::string> args) {
+Compiler::Statements::GetStatement::GetStatement(std::list<std::string> args, unsigned iLine) {
     if (args.size() != 1)
         throw INVALID_COUNT_PARAMS;
 

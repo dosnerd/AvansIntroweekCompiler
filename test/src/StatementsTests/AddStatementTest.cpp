@@ -26,7 +26,7 @@ TEST_F(AddStatementTest, Params_correct) {
     Compiler::Statements::Statement *add;
 
     params.emplace_back("58");
-    add = new Compiler::Statements::AddStatement(params);
+    add = new Compiler::Statements::AddStatement(params, 1);
     add->SetMemory(memory);
 
     EXPECT_TRUE(add->Execute());
@@ -38,7 +38,7 @@ TEST_F(AddStatementTest, Params_correct_negative) {
     Compiler::Statements::Statement *add;
 
     params.emplace_back("-58");
-    add = new Compiler::Statements::AddStatement(params);
+    add = new Compiler::Statements::AddStatement(params, 1);
     add->SetMemory(memory);
 
     EXPECT_TRUE(add->Execute());
@@ -50,38 +50,53 @@ TEST_F(AddStatementTest, Params_incorrect) {
     Compiler::Statements::Statement *add;
 
     try {
-        add = new Compiler::Statements::AddStatement(params);
+        add = new Compiler::Statements::AddStatement(params, 1);
         FAIL();
     } catch (std::string &error) {
         ASSERT_EQ(error, INVALID_COUNT_PARAMS);
     }
 }
 
+TEST_F(AddStatementTest, Params_add_variable) {
+    std::list<std::string> params;
+    Compiler::Statements::Statement *add;
 
-TEST_F(AddStatementTest, Params_incorrect_format_no_numbers) {
+    params.emplace_back("_five");
+
+    add = new Compiler::Statements::AddStatement(params, 1);
+    add->SetMemory(memory);
+    add->Execute();
+
+    ASSERT_EQ(memory->GetStack(), 10);
+}
+
+
+TEST_F(AddStatementTest, Params_incorrect_format_invalid_name) {
     std::list<std::string> params;
     Compiler::Statements::Statement *add;
 
     params.emplace_back("not_number");
 
     try {
-        add = new Compiler::Statements::AddStatement(params);
+        add = new Compiler::Statements::AddStatement(params, 1);
+        add->Execute();
         FAIL();
     } catch (std::string &error) {
-        ASSERT_EQ(error, INVALID_PARAM(1));
+        ASSERT_EQ(error, INVALID_NAME);
     }
 }
 
-TEST_F(AddStatementTest, Params_incorrect_format_number_as_text) {
+TEST_F(AddStatementTest, Params_incorrect_format_param_not_exists) {
     std::list<std::string> params;
     Compiler::Statements::Statement *add;
 
-    params.emplace_back("five");
+    params.emplace_back("_not_exists");
 
     try {
-        add = new Compiler::Statements::AddStatement(params);
+        add = new Compiler::Statements::AddStatement(params, 1);
+        add->Execute();
         FAIL();
     } catch (std::string &error) {
-        ASSERT_EQ(error, INVALID_PARAM(1));
+        ASSERT_EQ(error, VAR_NOT_FOUND);
     }
 }

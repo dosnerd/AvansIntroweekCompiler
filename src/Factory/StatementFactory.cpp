@@ -11,11 +11,11 @@ Compiler::Factory::StatementFactory &Compiler::Factory::StatementFactory::GetIns
 }
 
 Compiler::Statements::Statement *
-Compiler::Factory::StatementFactory::CreateStatement(std::string command, std::list<std::string> params) {
+Compiler::Factory::StatementFactory::CreateStatement(std::string command, std::list<std::string> params, unsigned iLine) {
     if (!Exists(command))
         return nullptr;
 
-    return m_registered[command]->Create(params);
+    return m_registered[command]->Create(params, iLine);
 }
 
 void

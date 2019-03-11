@@ -17,7 +17,7 @@ TEST_F(GetStatementTest, Params_correct) {
     Compiler::Statements::Statement *get;
 
     params.emplace_back("INPUT_A");
-    get = new Compiler::Statements::GetStatement(params);
+    get = new Compiler::Statements::GetStatement(params, 1);
     get->SetMemory(memory);
 
     EXPECT_TRUE(get->Execute());
@@ -29,7 +29,7 @@ TEST_F(GetStatementTest, Params_incorrect) {
     Compiler::Statements::Statement *get;
 
     try {
-        get = new Compiler::Statements::GetStatement(params);
+        get = new Compiler::Statements::GetStatement(params, 1);
         FAIL();
     } catch (std::string &error) {
         ASSERT_EQ(error, INVALID_COUNT_PARAMS);

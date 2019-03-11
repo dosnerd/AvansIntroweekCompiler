@@ -15,7 +15,7 @@ namespace Compiler {
         class AddStatement : public Statement {
         public:
             explicit                    AddStatement(int number);
-            explicit                    AddStatement(std::list<std::string> args);
+            explicit                    AddStatement(std::list<std::string> args, unsigned iLine);
                                         ~AddStatement() override = default;
 
         public:
@@ -27,6 +27,7 @@ namespace Compiler {
 
         private:
             int                         m_number;
+            std::string                 m_param;
         };
     }
 }

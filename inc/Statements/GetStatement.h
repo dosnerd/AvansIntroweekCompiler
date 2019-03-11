@@ -15,7 +15,7 @@ namespace Compiler {
         class GetStatement : public Statement {
         public:
             explicit                    GetStatement(std::string var);
-            explicit                    GetStatement(std::list<std::string> args);
+            explicit                    GetStatement(std::list<std::string> args, unsigned iLine);
                                         ~GetStatement() override = default;
 
         public:

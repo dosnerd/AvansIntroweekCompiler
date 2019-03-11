@@ -18,7 +18,7 @@ namespace Compiler {
                                         ~StatementCreatorInstance() override = default;
 
         public:
-            Statements::Statement       *Create(std::list<std::string> params) override { return new T(params); };
+            Statements::Statement       *Create(std::list<std::string> params, unsigned iLine) override { return new T(params, iLine); };
         };
     };
 };

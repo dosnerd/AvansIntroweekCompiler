@@ -28,7 +28,7 @@ namespace Compiler {
                                         ~StatementFactory() = default;
 
         public:
-            Statements::Statement       *CreateStatement(std::string command, std::list<std::string> params);
+            Statements::Statement       *CreateStatement(std::string command, std::list<std::string> params, unsigned iLine);
             void                        AddCreator(std::string command, StatementCreator *creator);
             void                        RemoveCreator(std::string command);
 
