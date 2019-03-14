@@ -8,6 +8,7 @@
 #include <map>
 #define INVALID_NAME                std::string("INVALID_NAME")
 #define VAR_NOT_FOUND               std::string("VAR_NOT_FOUND")
+#define DIVIDE_BY_ZERO              std::string("DIVIDE_BY_ZERO")
 
 namespace Compiler {
     class Memory {

@@ -103,14 +103,14 @@ std::string Compiler::Compiler::CompileLine(std::string &line, unsigned iLine) {
 }
 
 std::list<std::string> Compiler::Compiler::SplitLines(std::string &code) {
-    std::regex lineFilter(".*\r?(\n|$)");
+    std::regex lineFilter("(^|\r\n|\n|\r)[^;\r\n]*");
     std::sregex_iterator it(code.begin(), code.end(), lineFilter);
     std::list<std::string> lines;
 
     for (; it != std::sregex_iterator(); ++it) {
         std::string line = it->str();
         line = Replace(line, "\r", "");
-        line = Replace(line, "\n", " ");
+        line = Replace(line, "\n", "");
         lines.push_back(line);
     }
 

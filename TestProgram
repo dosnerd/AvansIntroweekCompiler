@@ -1,12 +1,16 @@
-SET _TEST 5
-
-GET _TEST
-ADD 5
-SET _ADD1
+SET _TEST 10        ; set 10 to _TEST
+                    ; ignore this line
+GET _TEST           ; store/get _TEST and put in processor
+ADD 5               ; instruct processor to add 5
+SET _ADD1           ; Set value from processor in _ADD1
 
 GET _TEST
 TIMES 3
 SET _TIMES1
+
+GET _TEST
+DIVIDE_BY 4
+SET _DIVIDE1
 
 SET _A 9
 GET _TEST
@@ -17,3 +21,23 @@ SET _M 2
 GET _TEST
 TIMES _M
 SET _TIMES2
+
+SET _D 3
+GET _TEST
+DIVIDE_BY _D
+SET _DIVIDE2
+
+SET PROGRAM_COUNTER 1
+SET _JA 12
+
+
+
+
+
+
+
+
+
+
+
+SET _kaas 14
